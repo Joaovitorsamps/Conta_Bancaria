@@ -63,10 +63,8 @@ Todo o código está contido no arquivo principal `sistema_bancario.py`. O siste
 
 ## 🚀 Próximos Passos (Sugestões de Evolução)
 
-- Implementar autenticação de usuário
-- Armazenar dados em arquivos ou banco de dados
-- Criar um sistema de contas múltiplas
-- Interface gráfica com Tkinter ou web com Flask
+- Implementar registros de data e hora
+- Implementar práticas de Programação Orientada a Objetos
 
 ---
 
