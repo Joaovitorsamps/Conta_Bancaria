@@ -1,82 +1,88 @@
-# 💰 Desafio Inicial - Sistema Bancário em Python
+# 💰 Sistema Bancário em Python (Versão com Autenticação e JSON)
 
 ## 📌 Objetivo Geral
 
-Desenvolver um **sistema bancário simples**, via terminal, com as seguintes operações:
+Desenvolver um **sistema bancário via terminal**, com múltiplos usuários e autenticação via **CPF e senha**, utilizando arquivos `.json` para persistência dos dados.
 
-- **Depósito**
-- **Saque**
-- **Transferência**
-- **Visualização de Extrato**
-
-Esse projeto visa praticar lógica de programação, estrutura de repetição e controle de fluxo em Python.
+Este projeto visa reforçar a lógica de programação, manipulação de arquivos, controle de fluxo e estrutura de dados com dicionários em Python.
 
 ---
 
 ## ⚙️ Funcionalidades
 
-### ✅ Operação de Depósito
-- Permite inserir qualquer valor maior que 0.
-- Cada valor depositado é **armazenado** e exibido posteriormente na operação de **extrato**.
+### ✅ Login e Cadastro de Usuário
+- Login realizado com **CPF e senha**.
+- Cadastro com verificação de duplicidade de CPF.
+- Armazenamento seguro dos usuários no arquivo `usuarios.json`.
 
-### ✅ Operação de Saque
-- O sistema permite **3 saques diários**, com **reinício automático a cada dia**.
-- Cada saque possui um limite de **R$ 500,00** por operação.
-- Caso o valor exceda o saldo disponível, é exibida uma mensagem informando a **falta de saldo**.
-- Todos os saques são **registrados e exibidos no extrato**.
+### ✅ Depósito
+- Permite depósitos com valores maiores que 0.
+- Atualiza saldo e registra no extrato.
+- Transações são salvas em `transacoes.json`.
 
-### ✅ Operação de Transferência
-- Permite realizar até **10 transferências por dia**, com controle diário de limite.
-- Cada transferência é registrada no extrato com a data e valor.
-- Não permite transferir valores negativos ou superiores ao saldo disponível.
+### ✅ Saque
+- Limite de **3 saques por dia**, reiniciado automaticamente a cada novo dia.
+- Limite de **R$ 500,00 por saque**.
+- Verifica saldo disponível antes de sacar.
+- Registra cada saque no extrato.
 
-### ✅ Operação de Extrato
-- Exibe todos os depósitos, saques e transferências realizados.
-- Mostra o **saldo atual** da conta no formato `R$ XXX.XX`.
-- Caso nenhuma operação tenha sido feita, exibe uma mensagem de ausência de movimentações.
+### ✅ Transferência
+- Permite até **10 transferências por dia** por usuário.
+- Bloqueia valores inválidos ou superiores ao saldo.
+- Registra data, hora e valor da transação no extrato.
+
+### ✅ Extrato
+- Mostra o histórico completo de **depósitos**, **saques** e **transferências**.
+- Exibe o **saldo atual** da conta.
+- Caso não haja movimentações, informa ausência de extrato.
+
+### ✅ Listagem de Usuários
+- Lista todos os usuários cadastrados com formato:
+    Usuário: CPF - Conta: X - Agência: 0001
+---
+
+## 🛠️ Recursos Técnicos Utilizados
+
+- `input()` para entrada de dados via terminal  
+- `print()` com `f-strings` para formatação  
+- `json` para leitura/escrita de arquivos  
+- `os.path.exists()` para verificação de arquivos  
+- `datetime` para controle de data e hora  
+- `textwrap.dedent` para organizar o menu visualmente  
+- Funções e modularização do código  
+- Validação de CPF e formatação padrão (`XXX.XXX.XXX-XX`)
 
 ---
 
-## 🧠 O que foi utilizado
+## 🧠 Conceitos Praticados
 
-- ✅ **Variáveis** (armazenamento de saldo, extrato, limites e contadores)
-- ✅ **Laço de repetição** `while` (estrutura principal do menu)
-- ✅ **Condicionais** `if`, `elif`, `else` (controle de fluxo)
-- ✅ **Função** `input()` para entrada de dados
-- ✅ **Formatação de strings** com `f-strings`
-- ✅ **Manipulação de datas** com `datetime`
-- ✅ **Controle de limite diário baseado na data atual**
-- ✅ **Operadores aritméticos e lógicos**
-- ✅ **Exibição de mensagens condicionais** com ternário (`if not extrato`)
+- Estrutura de repetição `while`  
+- Condicionais `if`, `elif`, `else`  
+- Manipulação de arquivos JSON  
+- Controle de fluxo baseado em data (limites diários)  
+- Lógica de autenticação básica  
+- Funções com escopo global/local  
+- Simulação de regras bancárias reais  
 
 ---
 
-## 📈 Curva de Aprendizado
+## 🗃️ Estrutura de Arquivos
 
-Este desafio permitiu a aplicação prática de:
+Conta_Bancaria/ │ ├── usuarios.json # Armazena usuários cadastrados (CPF + senha) ├── transacoes.json # Armazena histórico de transações por tipo └── Operacoes_da_Conta/ └── operacoes_da_conta.py # Arquivo principal com a lógica do sistema
 
-- 🧩 **Lógica condicional com múltiplos cenários** (valores inválidos, limite de saque, saldo insuficiente)
-- 🔄 **Estrutura de repetição com controle de saída e reset diário de limites**
-- 🧠 **Simulação de regras reais de um sistema bancário** (limites, datas, extratos)
-- 🛠️ **Tratamento de entradas e validações simples** (valores negativos, tipos numéricos)
-- 📅 **Controle de datas com `datetime` para operações financeiras**
-- 💡 **Organização e clareza do código** para facilitar futuras expansões
-
----
-
-## 🗃️ Código-fonte
-
-Todo o código está contido no arquivo principal `sistema_bancario.py`. O sistema é executado inteiramente no terminal.
+yaml
+Copiar código
 
 ---
 
 ## 🚀 Próximos Passos (Sugestões de Evolução)
 
-- Melhorar a modularização com funções
-- Evoluir para **Programação Orientada a Objetos (POO)**
-- Criar interface gráfica ou versão web
-- Armazenar dados em arquivos ou banco de dados
-- Adicionar autenticação de usuário (simples ou avançada)
+- Associar número de conta único por usuário (fixo)  
+- Separar cada usuário com suas próprias transações  
+- Utilizar **Programação Orientada a Objetos (POO)**  
+- Implementar interface gráfica com `Tkinter` ou versão web com `Flask`  
+- Armazenar dados em banco de dados como SQLite ou PostgreSQL  
+- Criptografar senhas com `hashlib` ou `bcrypt`  
 
 ---
 
