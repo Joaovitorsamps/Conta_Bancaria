@@ -114,8 +114,8 @@ def listar_usuarios():
                 print("Nenhum usuário encontrado.")
                 return
             print("\n====== USUÁRIOS CADASTRADOS ======")
-            for cpf in usuarios:
-                print(f"Usuário: {cpf} - Conta: 1 - Agência: 0001")
+            for i, cpf in enumerate(usuarios, start=1):
+                print(f"Usuário: {cpf} - Conta: {i} - Agência: 0001")
         except json.JSONDecodeError:
             print("Erro ao ler o arquivo de usuários.")
 
