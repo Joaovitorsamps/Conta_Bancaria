@@ -1,88 +1,93 @@
-# 💰 Sistema Bancário em Python (Versão com Autenticação e JSON)
+# 💰 Sistema Bancário em Python (Versão Orientada a Objetos com Autenticação e JSON)
 
 ## 📌 Objetivo Geral
 
-Desenvolver um **sistema bancário via terminal**, com múltiplos usuários e autenticação via **CPF e senha**, utilizando arquivos `.json` para persistência dos dados.
+Desenvolver um **sistema bancário via terminal**, com múltiplos usuários, autenticação com **CPF e senha**, e persistência dos dados usando arquivos `.json`, utilizando conceitos de **Programação Orientada a Objetos (POO)**, como encapsulamento, herança e classes abstratas.
 
-Este projeto visa reforçar a lógica de programação, manipulação de arquivos, controle de fluxo e estrutura de dados com dicionários em Python.
+Este projeto visa reforçar habilidades em design orientado a objetos, organização de código, controle de fluxo, e manipulação de arquivos e dados com Python.
 
 ---
 
 ## ⚙️ Funcionalidades
 
 ### ✅ Login e Cadastro de Usuário
-- Login realizado com **CPF e senha**.
+- Login via **CPF e senha** com validação.
 - Cadastro com verificação de duplicidade de CPF.
-- Armazenamento seguro dos usuários no arquivo `usuarios.json`.
+- Dados persistidos em `usuarios.json`.
 
 ### ✅ Depósito
-- Permite depósitos com valores maiores que 0.
-- Atualiza saldo e registra no extrato.
-- Transações são salvas em `transacoes.json`.
+- Permite depósitos com valores válidos.
+- Atualiza saldo e registra a transação no extrato.
+- Histórico salvo em `transacoes.json`.
 
 ### ✅ Saque
-- Limite de **3 saques por dia**, reiniciado automaticamente a cada novo dia.
-- Limite de **R$ 500,00 por saque**.
-- Verifica saldo disponível antes de sacar.
-- Registra cada saque no extrato.
+- Até **3 saques por dia**, com reinício automático a cada novo dia.
+- Valor máximo por saque: **R$ 500,00**.
+- Garante saldo suficiente antes de concluir.
+- Todas as operações são registradas.
 
 ### ✅ Transferência
-- Permite até **10 transferências por dia** por usuário.
-- Bloqueia valores inválidos ou superiores ao saldo.
-- Registra data, hora e valor da transação no extrato.
+- Limite de **10 transferências por dia**.
+- Verifica saldo e validade do valor.
+- Registro automático no extrato com data e hora.
 
 ### ✅ Extrato
-- Mostra o histórico completo de **depósitos**, **saques** e **transferências**.
-- Exibe o **saldo atual** da conta.
-- Caso não haja movimentações, informa ausência de extrato.
+- Mostra o histórico completo de transações.
+- Exibe o **saldo atual**.
+- Caso não haja movimentações, informa a ausência de extrato.
 
 ### ✅ Listagem de Usuários
-- Lista todos os usuários cadastrados com formato:
-    Usuário: CPF - Conta: X - Agência: 0001
----
-
-## 🛠️ Recursos Técnicos Utilizados
-
-- `input()` para entrada de dados via terminal  
-- `print()` com `f-strings` para formatação  
-- `json` para leitura/escrita de arquivos  
-- `os.path.exists()` para verificação de arquivos  
-- `datetime` para controle de data e hora  
-- `textwrap.dedent` para organizar o menu visualmente  
-- Funções e modularização do código  
-- Validação de CPF e formatação padrão (`XXX.XXX.XXX-XX`)
+- Lista todos os usuários cadastrados no formato:
+  ```
+  Usuário: CPF - Conta: X - Agência: 0001
+  ```
 
 ---
 
-## 🧠 Conceitos Praticados
+## 🧱 Arquitetura do Código (POO)
 
-- Estrutura de repetição `while`  
-- Condicionais `if`, `elif`, `else`  
-- Manipulação de arquivos JSON  
-- Controle de fluxo baseado em data (limites diários)  
-- Lógica de autenticação básica  
-- Funções com escopo global/local  
-- Simulação de regras bancárias reais  
-
----
-
-## 🗃️ Estrutura de Arquivos
-
-Conta_Bancaria/ │ ├── usuarios.json # Armazena usuários cadastrados (CPF + senha) ├── transacoes.json # Armazena histórico de transações por tipo └── Operacoes_da_Conta/ └── operacoes_da_conta.py # Arquivo principal com a lógica do sistema
-
-yaml
-Copiar código
+- `ContaBase` (abstrata): define a interface para saques, depósitos, transferências e extrato.
+- `Conta`: implementação concreta da conta bancária, com controle de saldo, limites e extrato.
+- `Usuario`: representa o cliente com CPF, senha e uma conta associada.
+- `Banco`: gerencia usuários, autenticação, e interação com o sistema.
+- `@property`: utilizado para proteger atributos sensíveis como `saldo`.
+- `abc`: utilizado para forçar implementação de métodos essenciais em subclasses.
 
 ---
 
-## 🚀 Próximos Passos (Sugestões de Evolução)
+## 🛠️ Tecnologias e Recursos Usados
 
-- Associar número de conta único por usuário (fixo)  
-- Separar cada usuário com suas próprias transações  
-- Utilizar **Programação Orientada a Objetos (POO)**  
-- Implementar interface gráfica com `Tkinter` ou versão web com `Flask`  
-- Armazenar dados em banco de dados como SQLite ou PostgreSQL  
-- Criptografar senhas com `hashlib` ou `bcrypt`  
+- `input()` e `print()` com formatação via `f-strings`
+- `json` para manipulação de dados persistentes
+- `os.path.exists()` para verificar existência de arquivos
+- `datetime` para controle de datas e limites diários
+- `textwrap.dedent` para formatação do menu
+- `abc` (Abstract Base Class) para estruturar regras de negócio
+- `@property` para encapsulamento e validação de atributos
+
+---
+
+## 📁 Estrutura de Arquivos
+
+```
+Conta_Bancaria/
+│
+├── usuarios.json            # Cadastro de usuários (CPF e senha)
+├── transacoes.json          # Histórico de transações
+└── banco_poo_refatorado.py  # Código principal com POO, abc e property
+```
+
+---
+
+## 🚀 Próximos Passos (Melhorias Sugeridas)
+
+- Associar número único de conta e agência por usuário
+- Manter transações separadas por usuário
+- Implementar **criptografia de senhas** com `bcrypt`
+- Criar interface gráfica com `Tkinter` ou versão web com `Flask`
+- Integrar com banco de dados (ex: SQLite, PostgreSQL)
+- Adicionar testes unitários com `unittest` ou `pytest`
+- Internacionalizar (i18n) e aplicar logs com `logging`
 
 ---
 
